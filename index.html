@@ -20,7 +20,7 @@
                 <div id="box" style="background-color: white;width: 400px;height: 200px;margin-left: 100px;margin-top: 40px;border-color: red;border: width 30px;border-style: solid;
                   flex-direction: column;overflow: hidden;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);overflow-y: scroll;">
                     
-                    <button id="savebutton" style="background-color:transparent;border:none;position: relative;margin-left: 5px;">
+                    <button id="savebutton"  style="background-color:transparent;border:none;position: relative;margin-left: 5px;cursor: pointer;">
                         <img src="heart icon.png" width="20px"> 
                     </button>
 
@@ -52,10 +52,10 @@
 
         const newQuote = document.getElementById('quote');
         const quotebox = document.getElementById('box');
+       
         newQuote.addEventListener('click', function() {
             const selectedFeeling = document.getElementById('feelingDropdown').value;
             document.body.style.background = gradients[selectedFeeling];
-
             fetch('http://127.0.0.1:5000/api/generate_quote', {
                 method: 'POST',
                 headers: {
@@ -70,10 +70,17 @@
                     document.getElementById('words').innerText = data.quote;
                     document.getElementById('words').style.opacity = 1;
                 }, 500);
-            });
+          
         });
 
-      
+
+        const quote = document.getElementById('words').innerText;
+            let favs = JSON.parse(localStorage.getItem('favourites')) || [];
+            favs.push(quote);
+            localStorage.setItem('favourites', JSON.stringify(favs))
+                 
+               
+            });
         
         const gradients = {
             happy: 'linear-gradient(135deg, #BF953F)',
