@@ -10,16 +10,40 @@
 
     </header>
 
-    <body>
+    <body id="backgroun-color">
         <div style="background-color: white;width: 600px;height: 350px;margin-left: 350px;margin-top: 100px;border-color: black;border: width 30px;border-style: solid;">
            
             <div style="text-align: center;font-size: 25px">
                 <p style="margin-top: 5px;">Words that stick!</p>
-                <div style="background-color: white;width: 350px;height: 140px;margin-left: 130px;margin-top: 40px;border-color: red;border: width 30px;border-style: solid;">
-                    <p id="words" style="margin-top: 20px;"></p>
+
+
+                <div id="box" style="background-color: white;width: 400px;height: 200px;margin-left: 100px;margin-top: 40px;border-color: red;border: width 30px;border-style: solid;
+                  flex-direction: column;overflow: hidden;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);overflow-y: scroll;">
+                    
+                    <button id="savebutton" style="background-color:transparent;border:none;position: relative;margin-left: 5px;">
+                        <img src="heart icon.png" width="20px"> 
+                    </button>
+
+                    <p id="words" style="margin-top: 20px;
+                      transition:opacity 0.5s,"> </p>
+
                 </div>
+
+            <div>
                 <button id="quote" style="margin-top: 30px;padding:10px;width:100px;background-color:greenyellow;border: radius 5px;border:none;cursor: pointer;">New Quote</button>
+                <select id="feelingDropdown" style="margin-top: 30px;padding:10px;width:100px;">
+                    <option value="happy" style="background-color: gold;">Happy</option>
+                    <option value="sad" style="background-color: green;">Sad</option>
+                    <option value="angry" style="background-color: red;">Angry</option>
+                     <option value="lonely" style="background-color: blueviolet;">Lonely</option>
+                    <option value="excited" style="background-color: orange;">Excited</option>
+                    <option value="inspiration" style="background-color: purple;">Inspiration</option>
+                </select>
             </div>
+
+
+            </div>
+                
 
         </div>
     </body>
@@ -27,23 +51,43 @@
     <script> 
 
         const newQuote = document.getElementById('quote');
+        const quotebox = document.getElementById('box');
         newQuote.addEventListener('click', function() {
-             fetch('https://zenquotes.io/api/random', {
-                
-          })
+            const selectedFeeling = document.getElementById('feelingDropdown').value;
+            document.body.style.background = gradients[selectedFeeling];
 
-   
-        
+            fetch('http://127.0.0.1:5000/api/generate_quote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ feeling: selectedFeeling })
+            })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('words').innerText = data[0].quote;
+                document.getElementById('words').style.opacity = 0;
+                setTimeout(() => {
+                    document.getElementById('words').innerText = data.quote;
+                    document.getElementById('words').style.opacity = 1;
+                }, 500);
             });
+        });
 
+      
+        
+        const gradients = {
+            happy: 'linear-gradient(135deg, #BF953F)',
+            sad: 'linear-gradient(135deg, #2C3E50)',
+            angry: 'linear-gradient(135deg, #FF416C)',
+            lonely: 'linear-gradient(135deg, #6A82FB)',
+            excited: 'linear-gradient(135deg, #F7971E)',
+            inspiration: 'linear-gradient(135deg, #00C9FF)'
+        };
 
-        }
-       )  
+        
 
-       
     </script>
+     
+   
 
 </html>
