@@ -38,4 +38,4 @@ def generate_quote():
     return jsonify({"quote": response.choices[0].message.content.strip()})
 
 if __name__ == '__main__':
- app.run(debug=True)
+ app.run(port=5001)
