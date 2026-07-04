@@ -11,9 +11,17 @@
 
 
     <body>
-           <div id="favouritequotessaved" style="margin-top: 20px;">
-                <p style="margin-top: 20px;"></p>
+
+        
+            
+
+           <div id="favouritequotessaved" style="margin-top: 20px; position: relative;">
+                <p style="margin-top: 20px;position: relative;"></p>
            </div>
+
+    
+
+      
     </body>
 
 
@@ -22,8 +30,32 @@
         console.log(favs)
         favs.forEach(element => {
            const p = document.createElement('p')
+           const deletebutton = document.createElement('button')
            p.innerText = element
            document.getElementById('favouritequotessaved').appendChild(p)
+           document.getElementById('favouritequotessaved').appendChild(deletebutton)
+
+           deletebutton.addEventListener('click', function(){
+
+              const index = favs.indexOf(element)
+              deletebutton.innerText = 'Delete'
+              favs.splice(index, 1)
+              localStorage.setItem('favourites', JSON.stringify(favs))
+              location.reload()
+
+              deletebutton.style.backgroundColor = 'red'
+              deletebutton.style.color = 'white'
+              deletebutton.style.color = 'white'
+              deletebutton.style.cursor = 'pointer'
+              deletebutton.style.borderRadius = '5px'
+              deletebutton.style.padding = '5px 10px'
+
+
+
+           }
+        
+        )
+           
             
         });
 
