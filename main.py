@@ -3,7 +3,7 @@ from openai import OpenAI
 from flask_cors import CORS
 
 
-api_key = "sk-xx"
+client = OpenAI() 
 client = OpenAI(api_key=api_key)
 app = Flask(__name__)
 CORS(app)
