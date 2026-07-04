@@ -74,13 +74,24 @@
         });
 
 
-        const quote = document.getElementById('words').innerText;
-            let favs = JSON.parse(localStorage.getItem('favourites')) || [];
-            favs.push(quote);
-            localStorage.setItem('favourites', JSON.stringify(favs))
+       
                  
                
             });
+
+
+            const savebutton = document.getElementById('savebutton')
+            savebutton.addEventListener('click', function() {
+
+                 const quote = document.getElementById('words').innerText;
+                 let favs = JSON.parse(localStorage.getItem('favourites')) || [];
+                 favs.push(quote);
+                 localStorage.setItem('favourites', JSON.stringify(favs))
+            }
+        
+        )
+
+            
         
         const gradients = {
             happy: 'linear-gradient(135deg, #BF953F)',
