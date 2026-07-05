@@ -13,6 +13,10 @@ def generate_quote():
     data = request.get_json()
     feeling = data.get('feeling')
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
  
     Instruction = """
        You are AI assistant for QuoteWall and your job is to generate quotes.
