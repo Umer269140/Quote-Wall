@@ -22,6 +22,11 @@ Second thing is to make sure to refresh the favourites page to see the saved quo
 ## AI vs Non AI
 The frontend of both pages was written all by me, the transition and the background color, in these two things i took AI help but not completely. In the backend, most of the use of AI was debugging, code was written by me. I went through lot of debugging and the devlogs explains that process in detail.
 
+## How to use it
+It is very easy to use the platform, first headover to this link: https://quotewall.umer-pc.hackclub.app/, here user can generate quotes and save their favourite ones. They can click the favourites bar to navigate to favourites page and over there user can delete their saved quotes.
+If anyone wants a direct link to favourites.html, here it is: https://quotewall.umer-pc.hackclub.app/favourites.
+Make sure to refresh the favourites page.
+
 
 
 
