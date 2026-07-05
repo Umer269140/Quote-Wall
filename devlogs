@@ -1,0 +1,5 @@
+The devlogs for this project contains some important things.
+First thing is that the commits are less and that is becuase the project is small.
+I faced several bugs including some in background changes.
+I faced bugs when i tried to fetch quotes.
+I realized later that my frontend was running on Github pages and my backend on Flask. I solved this by changing to all ports in main.py.
