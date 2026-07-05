@@ -1,5 +1,5 @@
 ## Description
-QuoteWall is a web based platform where users can generate new quotes based on how they are feeling at that moment. AI will tell quotes based on the feeling along with the authour name and a brief description of the author. Users can save their favourite quotes.
+QuoteWall is a web based platform where users can generate new quotes based on how they are feeling at that moment. AI will tell quotes based on the feeling along with the authour name and a brief description of the author. Users can save their favourite quotes. This is a part of #Horizons Program!
 
 ## Here are some screenshots of my project
 <img width="958" height="410" alt="Image 1 of QuoteWall" src="https://github.com/user-attachments/assets/0405c148-3488-4774-8033-f43bd0c2d81e" />
