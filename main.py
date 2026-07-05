@@ -13,9 +13,7 @@ def generate_quote():
     data = request.get_json()
     feeling = data.get('feeling')
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+
 
  
     Instruction = """
@@ -39,6 +37,10 @@ def index():
     )
     print(response.choices[0].message.content.strip())
     return jsonify({"quote": response.choices[0].message.content.strip()})
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
    app.run(host='0.0.0.0', port=5001)
