@@ -1,111 +1,146 @@
+<!DOCTYPE html>
 <html>
 
-    <header>
-        <a href="/favourites" style="color: black;">View Favourites</a>
-        <div style="text-align: center;">
-            <h1>QuoteWall</h1>
+    <header style="text-align: center;position: sticky;padding-top: 10px;">
 
-        </div>
+        <h1>WeatherDrop</h1>
+
+        <p>_______________________________________________________________________________________________________________________________________________________________</p>
+
         
 
     </header>
 
-    <body id="background-color">
-        <div style="background-color: white;width: 600px;height: 350px;margin-left: 350px;margin-top: 100px;border-color: black;border: width 30px;border-style: solid;">
+
+
+    <body style="background-color: lightblue;">
+
+        <button id="5dayforecast" style="height: 40px;position: relative;background-color: transparent;color: white;border: none;cursor: pointer;font-size: medium;font-weight: bold;">
+            Get the temperature for the next 5 days
+
+        </button>
+
+        <p id="5daytemp"></p>
+
+        <div id="forecastContainer" style="display:flex; gap:15px; flex-wrap:wrap; margin:20px;"></div>
+      
+
+        <div style="margin-left: 520px;margin-top: 50px;display: flex;gap: 10px;align-items: center;position: relative;">
+
+            <input id="cityInput" placeholder="New York" style="border-radius: 5px;width: 200px;padding: 5px;height: 30px;">
+
            
-            <div style="text-align: center;font-size: 25px">
-                <p style="margin-top: 5px;">Words that stick!</p>
 
-
-                <div id="box" style="background-color: white;width: 400px;height: 200px;margin-left: 100px;margin-top: 40px;border-color: red;border: width 30px;border-style: solid;
-                  flex-direction: column;overflow: hidden;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);overflow-y: scroll;">
-                    
-                    <button id="savebutton"  style="background-color:transparent;border:none;position: relative;margin-left: 5px;cursor: pointer;">
-                        <img src="heart icon.png" width="20px"> 
-                    </button>
-
-                    <p id="words" style="margin-top: 20px;
-                      transition:opacity 0.5s,"> </p>
-
-                </div>
-
-            <div>
-                <button id="quote" style="margin-top: 30px;padding:10px;width:100px;background-color:greenyellow;border: radius 5px;border:none;cursor: pointer;">New Quote</button>
-                <select id="feelingDropdown" style="margin-top: 30px;padding:10px;width:100px;">
-                    <option value="happy" style="background-color: gold;">Happy</option>
-                    <option value="sad" style="background-color: green;">Sad</option>
-                    <option value="angry" style="background-color: red;">Angry</option>
-                     <option value="lonely" style="background-color: blueviolet;">Lonely</option>
-                    <option value="excited" style="background-color: orange;">Excited</option>
-                    <option value="inspiration" style="background-color: purple;">Inspiration</option>
-                </select>
-            </div>
-
-
-            </div>
-                
-
+            <button id="weather" style="border: none;cursor: pointer;width: 40px;background-color: lightblue;">
+                  <img src="Search Icon.png" style="width: 60px;">
+            </button>
+          
         </div>
+
+         
+
+         <div style="width: 400px;height: 400px;border-radius: 5px;padding: 5px; box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.3);background-color: white;
+           margin: auto;margin-top: 60px;align-items: center;">
+
+            <img id="weathericon" style="margin-left: 150px;">
+            
+            
+            <p id="temp" style="font-size: 40px;margin-left: 150px;"></p>
+
+            <p id="name" style="font-size: large;font-weight: bold;margin-left: 150px;"></p>
+            <p id="humidity" style="font-size: 20px;margin-left: 150px;"></p>
+            <p id="speed" style="font-size: 20px;margin-left: 150px;"></p>
+            <p id="condition" style="margin-left: 150px;font-size: 20px;"></p>
+
+         </div>
+
+         
+
     </body>
 
-    <script> 
 
-        const newQuote = document.getElementById('quote');
-        const quotebox = document.getElementById('box');
-       
-        newQuote.addEventListener('click', function() {
-            const selectedFeeling = document.getElementById('feelingDropdown').value;
-            document.body.style.background = gradients[selectedFeeling];
-            fetch('/api/generate_quote', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ feeling: selectedFeeling })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('words').style.opacity = 0;
-                setTimeout(() => {
-                    document.getElementById('words').innerText = data.quote;
-                    document.getElementById('words').style.opacity = 1;
-                }, 500);
-          
+    <script>
+
+const fetchweather = document.getElementById("weather");
+const forecast = document.getElementById("5dayforecast");
+
+fetchweather.addEventListener("click", function () {
+
+    const city = document.getElementById("cityInput").value;
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=cccd4f6f5e38ae57702d5cd7e5addd28&units=metric`)
+        .then(response => response.json())
+        .then(data => {
+
+            document.getElementById("temp").innerText =
+                `${Math.round(data.main.temp)}°C`;
+
+            document.getElementById("name").innerText =
+                data.name;
+
+            document.getElementById("humidity").innerText =
+                `Humidity: ${data.main.humidity}%`;
+
+            document.getElementById("speed").innerText =
+                `Wind: ${data.wind.speed} m/s`;
+
+            document.getElementById("condition").innerText =
+                data.weather[0].main;
+
+            document.getElementById("weathericon").src =
+                `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+        });
+
+});
+
+forecast.addEventListener("click", function () {
+
+    const city = document.getElementById("cityInput").value;
+
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=cccd4f6f5e38ae57702d5cd7e5addd28&units=metric`)
+        .then(response => response.json())
+        .then(data => {
+
+            const container = document.getElementById("forecastContainer");
+
+            container.innerHTML = "";
+
+            data.list.forEach(item => {
+
+                if (item.dt_txt.includes("18:00:00")) {
+
+                    const date = item.dt_txt.split(" ")[0];
+
+                    container.innerHTML += `
+                        <div style="
+                            background:white;
+                            width:150px;
+                            padding:15px;
+                            border-radius:10px;
+                            text-align:center;
+                            box-shadow:0 0 10px rgba(0,0,0,0.2);
+                        ">
+                            <h3>${date}</h3>
+
+                            <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png">
+
+                            <h2>${Math.round(item.main.temp)}°C</h2>
+
+                            <p>${item.weather[0].main}</p>
+                        </div>
+                    `;
+
+                }
+
+            });
+
         });
 
 
-       
-                 
-               
-            });
 
+});
 
-            const savebutton = document.getElementById('savebutton')
-            savebutton.addEventListener('click', function() {
-
-                 const quote = document.getElementById('words').innerText;
-                 let favs = JSON.parse(localStorage.getItem('favourites')) || [];
-                 favs.push(quote);
-                 localStorage.setItem('favourites', JSON.stringify(favs))
-            }
-        
-        )
-
-            
-        
-        const gradients = {
-            happy: 'linear-gradient(135deg, #BF953F)',
-            sad: 'linear-gradient(135deg, #2C3E50)',
-            angry: 'linear-gradient(135deg, #FF416C)',
-            lonely: 'linear-gradient(135deg, #6A82FB)',
-            excited: 'linear-gradient(135deg, #F7971E)',
-            inspiration: 'linear-gradient(135deg, #00C9FF)'
-        };
-
-        
-
-    </script>
-     
-   
+</script>
 
 </html>
